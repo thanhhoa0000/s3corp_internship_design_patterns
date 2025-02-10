@@ -1,0 +1,148 @@
+name: dockercompose6151433383979517799
+services:
+  users.api:
+    build:
+      context: D:\Internship\Code\Tasks\Day2_DesignPatterns\UserManagementApp
+      dockerfile: UserApi/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Debug
+        LAUNCHING_FROM_VS: "true"
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: UserApi
+      target: base
+    container_name: UserApi
+    depends_on:
+      users.db:
+        condition: service_started
+        required: true
+    entrypoint:
+      - dotnet
+      - --roll-forward
+      - Major
+      - /VSTools/DistrolessHelper/DistrolessHelper.dll
+      - --wait
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_Kestrel__Certificates__Default__Password: verylOngandWeAkpAasw0rd
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /home/app/.aspnet/https/Users.API.pfx
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://+:5041;http://+:5040
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      NUGET_FALLBACK_PACKAGES: /.nuget/fallbackpackages
+    image: user.api:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /.nuget/packages --additionalProbingPath /.nuget/fallbackpackages  "/app/bin/Debug/net8.0/UserApi.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: dotnet --roll-forward Major /VSTools/DistrolessHelper/DistrolessHelper.dll --stop dotnet
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      user-net: null
+    ports:
+      - mode: ingress
+        target: 5040
+        published: "5040"
+        protocol: tcp
+      - mode: ingress
+        target: 5041
+        published: "5041"
+        protocol: tcp
+    tty: true
+    volumes:
+      - type: bind
+        source: D:\Internship\Code\Tasks\Day2_DesignPatterns\UserManagementApp\certs\.aspnet\https\Users.API.pfx
+        target: /home/app/.aspnet/https/Users.API.pfx
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: D:\Internship\Code\Tasks\Day2_DesignPatterns\UserManagementApp\UserApi
+        target: /app
+        bind:
+          create_host_path: true
+      - type: bind
+        source: D:\Internship\Code\Tasks\Day2_DesignPatterns\UserManagementApp
+        target: /src
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\hoa.nguyen\vsdbg\vs2017u5
+        target: /remote_debugger
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\hoa.nguyen\.nuget\packages
+        target: /.nuget/packages
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages
+        target: /.nuget/fallbackpackages
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\hoa.nguyen\AppData\Roaming\ASP.NET\Https
+        target: /root/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\hoa.nguyen\AppData\Roaming\ASP.NET\Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\hoa.nguyen\AppData\Roaming\Microsoft\UserSecrets
+        target: /root/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\hoa.nguyen\AppData\Roaming\Microsoft\UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\linux-x64\net8.0
+        target: /VSTools
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\HotReload
+        target: /HotReloadAgent
+        read_only: true
+        bind:
+          create_host_path: true
+  users.db:
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      SA_PASSWORD: MyPa55w0rd
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 1433
+        published: "1433"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: users_data
+        target: /var/opt/mssql
+        volume: {}
+networks:
+  default:
+    name: dockercompose6151433383979517799_default
+  user-net:
+    name: dockercompose6151433383979517799_user-net
+    driver: bridge
+volumes:
+  users_data:
+    name: dockercompose6151433383979517799_users_data

@@ -1,0 +1,62 @@
+name: dockercompose6151433383979517799
+services:
+  users.api:
+    build:
+      context: D:\Internship\Code\Tasks\Day2_DesignPatterns\UserManagementApp
+      dockerfile: UserApi/Dockerfile
+    depends_on:
+      users.db:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_Kestrel__Certificates__Default__Password: verylOngandWeAkpAasw0rd
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /home/app/.aspnet/https/Users.API.pfx
+      ASPNETCORE_URLS: https://+:5041;http://+:5040
+    image: user.api
+    networks:
+      user-net: null
+    ports:
+      - mode: ingress
+        target: 5040
+        published: "5040"
+        protocol: tcp
+      - mode: ingress
+        target: 5041
+        published: "5041"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: D:\Internship\Code\Tasks\Day2_DesignPatterns\UserManagementApp\certs\.aspnet\https\Users.API.pfx
+        target: /home/app/.aspnet/https/Users.API.pfx
+        read_only: true
+        bind:
+          create_host_path: true
+  users.db:
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      SA_PASSWORD: MyPa55w0rd
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 1433
+        published: "1433"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: users_data
+        target: /var/opt/mssql
+        volume: {}
+networks:
+  default:
+    name: dockercompose6151433383979517799_default
+  user-net:
+    name: dockercompose6151433383979517799_user-net
+    driver: bridge
+volumes:
+  users_data:
+    name: dockercompose6151433383979517799_users_data

@@ -1,0 +1,1 @@
+# s3corp_internship_design_patterns

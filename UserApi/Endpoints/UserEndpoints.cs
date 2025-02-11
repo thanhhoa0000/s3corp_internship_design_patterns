@@ -35,12 +35,6 @@ namespace UserManagementApp.UserApi.Endpoints
             {
                 logger.LogInformation("Getting the users...");
 
-                if (mapper == null)
-                {
-                    logger.LogError("Mapper is NULL!");
-                    return TypedResults.BadRequest("Mapper is not initialized.");
-                }
-
                 IEnumerable<AppUser> usersList 
                     = await repository.GetUsersAsync(tracked: false, pageSize: pageSize, pageNumber: pageNumber);
 

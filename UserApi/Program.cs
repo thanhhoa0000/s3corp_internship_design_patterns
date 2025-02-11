@@ -1,3 +1,4 @@
+using UserManagementApp.UserApi;
 using UserManagementApp.UserApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,10 +13,7 @@ builder.Services.AddDbContextFactory<UserContext>(options
             errorNumbersToAdd: null)
         ));
 
-builder.Services.AddAutoMapper(cfg =>
-{
-    cfg.CreateMap<AppUser, AppUserDto>().ReverseMap();
-});
+builder.Services.AddAutoMapper(config => MappingConfiguration.ConfigureMapping());
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 

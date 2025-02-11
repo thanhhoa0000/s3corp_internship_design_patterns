@@ -1,10 +1,17 @@
-﻿namespace UserManagementApp.UserApi
+﻿using static Azure.Core.HttpHeader;
+
+namespace UserManagementApp.UserApi
 {
-    public class MappingConfiguration : Profile
+    public static class MappingConfiguration
     {
-        public MappingConfiguration()
+        public static MapperConfiguration ConfigureMapping()
         {
-            CreateMap<AppUser, AppUserDto>().ReverseMap();
+            var mappingConfig = new MapperConfiguration(config =>
+            {
+                config.CreateMap<AppUser, AppUserDto>().ReverseMap();
+            });
+
+            return mappingConfig;
         }
     }
 }

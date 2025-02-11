@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "tCv4mYxx9A0=",
+  "dgSpecHash": "w9TouQfGqdQ=",
   "success": true,
-  "projectFilePath": "D:\\Internship\\Code\\Tasks\\Day2_DesignPatterns\\UserManagementApp\\UserApi\\UserApi.csproj",
+  "projectFilePath": "D:\\Internship\\Code\\Tasks\\Day2_DesignPatterns\\UserManagementApp\\s3corp_internship_design_patterns\\UserApi\\UserApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\hoa.nguyen\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\hoa.nguyen\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\hoa.nguyen\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\hoa.nguyen\\.nuget\\packages\\carter\\8.2.1\\carter.8.2.1.nupkg.sha512",
@@ -53,7 +54,6 @@
     "C:\\Users\\hoa.nguyen\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\hoa.nguyen\\.nuget\\packages\\microsoft.openapi\\1.6.22\\microsoft.openapi.1.6.22.nupkg.sha512",
     "C:\\Users\\hoa.nguyen\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
-    "C:\\Users\\hoa.nguyen\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.21.0\\microsoft.visualstudio.azure.containers.tools.targets.1.21.0.nupkg.sha512",
     "C:\\Users\\hoa.nguyen\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\hoa.nguyen\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\hoa.nguyen\\.nuget\\packages\\swashbuckle.aspnetcore\\7.2.0\\swashbuckle.aspnetcore.7.2.0.nupkg.sha512",

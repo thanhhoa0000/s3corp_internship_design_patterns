@@ -1,9 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<UserContext>(options
+builder.Services.AddDbContextFactory<UserContext>(options
     => options.UseSqlServer(
         builder.Configuration.GetConnectionString("UserDb"),
         sqlOptions => sqlOptions.EnableRetryOnFailure(
@@ -11,6 +9,8 @@ builder.Services.AddDbContext<UserContext>(options
             maxRetryDelay: TimeSpan.FromSeconds(15),
             errorNumbersToAdd: null)
         ));
+
+builder.Services.AddAutoMapper(typeof(MapperConfiguration));
 
 builder.Services.AddControllers();
 builder.Services.AddCarter();

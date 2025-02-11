@@ -1,3 +1,5 @@
+using UserManagementApp.UserApi.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,7 +12,12 @@ builder.Services.AddDbContextFactory<UserContext>(options
             errorNumbersToAdd: null)
         ));
 
-builder.Services.AddAutoMapper(typeof(MapperConfiguration));
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.CreateMap<AppUser, AppUserDto>().ReverseMap();
+});
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddCarter();

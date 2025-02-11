@@ -2,9 +2,9 @@
 {
     public class AppUserDto
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
         public required string Name { get; set; }
-        public Gender Gender { get; set; } = Gender.Male;
+        public Gender Gender { get; set; }
         public int Age { get; set; }
     }
 }

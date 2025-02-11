@@ -15,8 +15,8 @@ services:
       - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
       - NUGET_FALLBACK_PACKAGES=/.nuget/fallbackpackages
     volumes:
-      - D:\Internship\Code\Tasks\Day2_DesignPatterns\UserManagementApp\UserApi:/app:rw
-      - D:\Internship\Code\Tasks\Day2_DesignPatterns\UserManagementApp:/src:rw
+      - D:\Internship\Code\Tasks\Day2_DesignPatterns\UserManagementApp\s3corp_internship_design_patterns\UserApi:/app:rw
+      - D:\Internship\Code\Tasks\Day2_DesignPatterns\UserManagementApp\s3corp_internship_design_patterns:/src:rw
       - C:\Users\hoa.nguyen\vsdbg\vs2017u5:/remote_debugger:rw
       - C:\Users\hoa.nguyen\.nuget\packages:/.nuget/packages:ro
       - C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages:/.nuget/fallbackpackages:ro

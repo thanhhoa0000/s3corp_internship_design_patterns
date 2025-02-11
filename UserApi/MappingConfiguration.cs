@@ -1,6 +1,4 @@
-﻿using UserManagementApp.UserApi.Models.Dtos;
-
-namespace UserManagementApp.UserApi
+﻿namespace UserManagementApp.UserApi
 {
     public class MappingConfiguration : Profile
     {

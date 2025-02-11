@@ -22,16 +22,24 @@ namespace UserManagementApp.UserApi.Endpoints
 
         public async Task<Results<Ok<IEnumerable<AppUserDto>>, BadRequest<string>>> 
             GetAllUsers(
-                IUserRepository repository,
+                [FromServices] IUserRepository repository,
+                IMapper mapper,
+                [FromServices] ILoggerFactory loggerFactory,
                 HttpContext httpContext,
-                IMapper mapper, 
-                ILogger logger,
-                int pageSize = 0,
-                int pageNumber = 1)
+                [FromQuery] int pageSize = 0,
+                [FromQuery] int pageNumber = 1)
         {
+            ILogger logger = loggerFactory.CreateLogger(nameof(UserEndpoints));
+
             try
             {
                 logger.LogInformation("Getting the users...");
+
+                if (mapper == null)
+                {
+                    logger.LogError("Mapper is NULL!");
+                    return TypedResults.BadRequest("Mapper is not initialized.");
+                }
 
                 IEnumerable<AppUser> usersList 
                     = await repository.GetUsersAsync(tracked: false, pageSize: pageSize, pageNumber: pageNumber);
@@ -56,11 +64,13 @@ namespace UserManagementApp.UserApi.Endpoints
 
         public async Task<Results<Ok<AppUserDto>, BadRequest<string>>> 
             GetUser(
-                IUserRepository repository,
+                [FromServices] IUserRepository repository,
                 Guid userId,
                 IMapper mapper,
-                ILogger logger)
+                ILoggerFactory loggerFactory)
         {
+            ILogger logger = loggerFactory.CreateLogger(nameof(UserEndpoints));
+
             try
             {
                 logger.LogInformation("Getting the user...");
@@ -86,10 +96,12 @@ namespace UserManagementApp.UserApi.Endpoints
         public async Task<Results<Created, BadRequest<string>>> 
             CreateUser(
                 [FromBody] AppUserDto userDto,
-                IUserRepository repository,
+                [FromServices] IUserRepository repository,
                 IMapper mapper,
-                ILogger logger)
+                ILoggerFactory loggerFactory)
         {
+            ILogger logger = loggerFactory.CreateLogger(nameof(UserEndpoints));
+
             try
             {
                 if (userDto is null)
@@ -122,10 +134,12 @@ namespace UserManagementApp.UserApi.Endpoints
         public async Task<Results<NoContent, NotFound<string>, BadRequest<string>>>
             UpdateUser(
                 [FromBody] AppUserDto userDto,
-                IUserRepository repository,
+                [FromServices] IUserRepository repository,
                 IMapper mapper,
-                ILogger logger)
+                ILoggerFactory loggerFactory)
         {
+            ILogger logger = loggerFactory.CreateLogger(nameof(UserEndpoints));
+
             try
             {
                 if (userDto is null)
@@ -160,9 +174,11 @@ namespace UserManagementApp.UserApi.Endpoints
         public async Task<Results<NoContent, NotFound<string>, BadRequest<string>>>
             DeleteUser(
                 Guid userId,
-                IUserRepository repository,
-                ILogger logger)
+                [FromServices] IUserRepository repository,
+                ILoggerFactory loggerFactory)
         {
+            ILogger logger = loggerFactory.CreateLogger(nameof(UserEndpoints));
+
             try
             {
                 if (userId.ToString().IsNullOrEmpty())

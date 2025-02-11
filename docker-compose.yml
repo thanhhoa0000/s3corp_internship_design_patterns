@@ -22,6 +22,8 @@ services:
       - 1433:1433
     volumes:
       - users_data:/var/opt/mssql
+    networks:
+      user-net:
     restart: unless-stopped
     
 volumes:
